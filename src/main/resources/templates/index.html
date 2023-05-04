@@ -1,10 +1,48 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
+    <title>Kod Kft Project</title>
 </head>
 <body>
+
+    <h1>Kód Kft projekt</h1>
+
+
+    <form th:action="register" th:method="post" th:object="${uDomainForm}">
+
+        <label >Kérem adja meg a rövidíteni kívánt URL-t</label>
+        <input type="text" th:field="*{originalUrl}">
+        <button type="submit">Mentés</button>
+    </form>
+    <div th:text="${insertMessage}">message</div>
+
+
+    <form th:action="search" th:method="post" th:object="${uDomainForm}">
+
+        <label >Kérem adja meg a rövidített URL-t</label>
+        <input type="text" th:field="*{shortedUrl}">
+        <button type="submit">Keresés</button>
+    </form>
+    <div th:text="${searchMessage}">message</div>
+
+    <form th:action="alldata" th:method="post" th:object="${uDomainForm}">
+        <button type="submit">Teljes tábla megjelenítése</button>
+    </form>
+
+
+<div>
+    <article th:each="data :${alldatas}">
+        <table>
+            <tr>
+                <th th:text="${data.id}"></th>
+                <th th:text="${data.shortedUrl}"></th>
+                <th th:text="${data.created}"></th>
+                <th th:text="${data.originalUrl}"></th>
+            </tr>
+        </table>
+    </article>
+</div>
 
 </body>
 </html>
